@@ -5,11 +5,13 @@
  */
 package edu.mum.cs545;
 
-import edu.mum.cs545.domain.Product;
+import edu.mum.cs545.domain.ProductEntity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
@@ -31,32 +33,63 @@ public class ProductBean implements Serializable{
     private boolean discontinued;
     private String condition;
 
-    private List<Product> listOfProduct;
+    private List<ProductEntity> listOfProduct;
     
-    public ProductBean() {
-        listOfProduct = new ArrayList<Product>();
-        
-        Product iPhone = new Product("P1234", "iPhone", BigDecimal.valueOf(499));
+    @EJB //this annotation causes the container to inject this dependency
+    private edu.mum.cs545.db.ProductEntityFacade ejbProductFacade;
+
+               
+
+    @PostConstruct  //this annotation causes this method to run after the constructor completes
+    public void init() { //create a few tea products, place in database, and load into the teaEntities list
+       
+        ProductEntity iPhone = new ProductEntity();
+        iPhone.setProductId("P1234");
+        iPhone.setName("iPhone");
+        iPhone.setUnitPrice(BigDecimal.valueOf(499));
         iPhone.setDescription("iPhone 7");
         iPhone.setCategory("Smart Phone");
         iPhone.setManufacturer("Apple");
         iPhone.setUnitsInStock(100);
 
-        Product nexus7 = new Product("P1235", "Nexus 7", BigDecimal.valueOf(350));
+        ProductEntity nexus7 = new ProductEntity();
+        nexus7.setProductId("P1235");
+        nexus7.setName("Nexus 7");
+        nexus7.setUnitPrice(BigDecimal.valueOf(350));
+        
         nexus7.setDescription("Nexus 7 tablet");
         nexus7.setCategory("Tablet");
         nexus7.setManufacturer("Asus");
         nexus7.setUnitsInStock(500);
 
-        Product dellLatitude = new Product("P1236", "Dell Latitude", BigDecimal.valueOf(700));
+        ProductEntity dellLatitude = new ProductEntity();
+        dellLatitude.setProductId("P1236");
+        dellLatitude.setName("Dell Latitude");
+        dellLatitude.setUnitPrice(BigDecimal.valueOf(700));
+        
         dellLatitude.setDescription("Dell latitude laptop");
         dellLatitude.setCategory("Laptop");
         dellLatitude.setManufacturer("Dell");
         dellLatitude.setUnitsInStock(50);
 
-        listOfProduct.add(iPhone);
-        listOfProduct.add(nexus7);
-        listOfProduct.add(dellLatitude);
+       ejbProductFacade.create(iPhone);
+       ejbProductFacade.create(nexus7);
+       ejbProductFacade.create(dellLatitude);
+                  
+
+       List<ProductEntity> productEntities = ejbProductFacade.findAll();
+       listOfProduct = new ArrayList<>();
+      
+
+       for (ProductEntity proEnt: productEntities) {
+
+           listOfProduct.add(proEnt);
+
+       }
+
+    }  
+    
+    public ProductBean() {
     }
 
     public String getProductId() {
@@ -139,12 +172,12 @@ public class ProductBean implements Serializable{
         this.condition = condition;
     }
 
-    public List<Product> getListOfProduct() {
+    public List<ProductEntity> getListOfProduct() {
         return listOfProduct;
     }
     
     public String onAdd(){
-        Product product = new Product();
+        ProductEntity product = new ProductEntity();
         product.setProductId(productId);
         product.setCategory(category);
         product.setCondition(condition);
@@ -157,6 +190,7 @@ public class ProductBean implements Serializable{
         product.setUnitsInStock(unitsInStock);
         
         listOfProduct.add(product);
+        ejbProductFacade.create(product);
         
         return "products";
     }

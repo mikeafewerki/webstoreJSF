@@ -7,24 +7,29 @@ package edu.mum.cs545.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Objects;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author 984986
  */
-public class Product implements Serializable{
-   // @Pattern(regexp="P[0-9]+", message="{Pattern.Product.productId.validation}")
+@Entity
+public class ProductEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+// @Pattern(regexp="P[0-9]+", message="{Pattern.Product.productId.validation}")
     private String productId;
-    
+
     //@Size(min=4, max=50, message="{Size.Product.name.validation}")
     private String name;
-    
+
     //@Min(value=0, message="{Min.Product.unitPrice.validation}")
     //@Digits(integer=8, fraction=2, message="{Digits.Product.unitPrice.validation}")
     //@NotNull(message= "{NotNull.Product.unitPrice.validation}")
@@ -37,13 +42,7 @@ public class Product implements Serializable{
     private boolean discontinued;
     private String condition;
 
-    public Product() {
-    }
-
-    public Product(String productId, String name, BigDecimal unitPrice) {
-        this.productId = productId;
-        this.name = name;
-        this.unitPrice = unitPrice;
+    public ProductEntity() {
     }
 
     public String getProductId() {
@@ -126,30 +125,37 @@ public class Product implements Serializable{
         this.condition = condition;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.productId);
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof ProductEntity)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        ProductEntity other = (ProductEntity) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
-        final Product other = (Product) obj;
-        return Objects.equals(this.productId, other.productId);
+        return true;
     }
 
     @Override
     public String toString() {
-        return "Product{" + "productId=" + productId + ", name=" + name + '}';
+        return "edu.mum.cs545.domain.ProductEntity[ id=" + id + " ]";
     }
+
 }
