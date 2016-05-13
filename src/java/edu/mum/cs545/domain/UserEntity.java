@@ -20,9 +20,8 @@ public class UserEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    //private Long id;
     private String userId;
     private String password;
 
@@ -45,18 +44,18 @@ public class UserEntity implements Serializable {
         this.password = password;
     }
     
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (userId != null ? userId.hashCode() : 0);
         return hash;
     }
 
@@ -67,7 +66,7 @@ public class UserEntity implements Serializable {
             return false;
         }
         UserEntity other = (UserEntity) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.userId == null && other.userId != null) || (this.userId != null && !this.userId.equals(other.userId))) {
             return false;
         }
         return true;
@@ -75,7 +74,7 @@ public class UserEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.mum.cs545.domain.UserEntity[ id=" + id + " ]";
+        return "edu.mum.cs545.domain.UserEntity[ id=" + userId + " ]";
     }
     
 }

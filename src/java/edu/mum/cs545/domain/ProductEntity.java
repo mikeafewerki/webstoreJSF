@@ -21,9 +21,8 @@ public class ProductEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    //private Long id;
 // @Pattern(regexp="P[0-9]+", message="{Pattern.Product.productId.validation}")
     private String productId;
 
@@ -125,18 +124,18 @@ public class ProductEntity implements Serializable {
         this.condition = condition;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (productId != null ? productId.hashCode() : 0);
         return hash;
     }
 
@@ -147,7 +146,7 @@ public class ProductEntity implements Serializable {
             return false;
         }
         ProductEntity other = (ProductEntity) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.productId == null && other.productId != null) || (this.productId != null && !this.productId.equals(other.productId))) {
             return false;
         }
         return true;
@@ -155,7 +154,7 @@ public class ProductEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.mum.cs545.domain.ProductEntity[ id=" + id + " ]";
+        return "edu.mum.cs545.domain.ProductEntity[ id=" + productId + " ]";
     }
 
 }
