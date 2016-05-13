@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet"
+              href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+        <title>Products</title>
+    </h:head>
+    <h:body>
+        <section>
+            <div class="jumbotron">
+                <div class="container">
+                    <h1>Products</h1>
+                    <p>All the available products in our store</p>
+                </div>
+                <div>
+                    <p>
+                        <h:link outcome="addProduct" class="btn btn-primary">
+                            <span class="glyphicon-info-sign glyphicont">
+                                Add New Product
+                            </span>
+                        </h:link>
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <h:link outcome="login" class="btn btn-warning btn-lg pull-right">
+                            <span class="glyphicon glyphicon-log-out">
+                                Logout
+                            </span>
+                        </h:link>
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="container">
+            <div class="row">
+                <c:forEach items="${productBean.listOfProduct}" var="product"> 
+                    <div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
+                        <div class="thumbnail">
+                            <h:graphicImage value="/resources/images/#{product.productId}.jpg" alt="image"  style = "width:100%"/>
+                            <div class="caption">
+                                <h3>#{product.name}</h3>
+                                <p>#{product.description}</p>
+                                <p>#{product.unitPrice} USD</p>
+                                <p>Available #{product.unitsInStock} units in stock</p>
+                                <p>
+                                    <h:link outcome="product" class="btn btn-primary">
+                                        <span class="glyphicon-info-sign glyphicon">
+                                            Details
+                                        </span>
+                                        <f:param name="id" value="#{product.productId}"/>
+                                        <f:param name="name" value="#{product.name}"/>
+                                        <f:param name="description" value="#{product.description}"/>
+                                        <f:param name="unitPrice" value="#{product.unitPrice}"/>
+                                        <f:param name="unitsInStock" value="#{product.unitsInStock}"/> 
+                                        <f:param name="manufacturer" value="#{product.manufacturer}"/>
+                                        <f:param name="category" value="#{product.category}"/>
+                                    </h:link>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </section>
+    </h:body>
+</html>

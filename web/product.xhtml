@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet"
+              href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+        <title>Products</title>
+    </h:head>
+
+    <h:body>
+
+        <f:metadata>
+            <f:viewParam name="id" value="#{productBean.productId}" />
+            <f:viewParam name="name" value="#{productBean.name}" />
+            <f:viewParam name="description" value="#{productBean.description}"/>
+            <f:viewParam name="unitPrice" value="#{productBean.unitPrice}"/>
+            <f:viewParam name="unitsInStock" value="#{productBean.unitsInStock}"/>
+            <f:viewParam name="manufacturer" value="#{productBean.manufacturer}"/>
+            <f:viewParam name="category" value="#{productBean.category}"/>
+        </f:metadata>
+
+        <section>
+            <div class="jumbotron">
+                <div class="container">
+                    <h1>Product</h1>
+                </div>
+            </div>
+        </section>
+        <section class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <h:graphicImage value="/resources/images/#{productBean.productId}.jpg" alt="image"  style = "width:100%"/>
+                </div>
+                <div class="col-md-5">
+                    <h3>#{productBean.name}</h3>
+                    <p>#{productBean.description}</p>
+                    <p>
+                        <strong>Item Code : </strong><span class="label label-warning">#{productBean.productId}</span>
+                    </p>
+                    <p>
+                        <strong>manufacturer</strong> : #{productBean.manufacturer}
+                    </p>
+                    <p>
+                        <strong>category</strong> : #{productBean.category}
+                    </p>
+                    <p>
+                        <strong>Availble units in stock </strong> : #{productBean.unitsInStock}
+                    </p>
+                    <h4>#{productBean.unitPrice} USD</h4>
+                    <p>
+                        <h:link outcome="products" class="btn btn-default">
+                            <span class='glyphicon-hand-left glyphicon'>back</span>
+                        </h:link>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </h:body>
+</html>

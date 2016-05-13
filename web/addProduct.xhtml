@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet"
+              href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+        <title>Products</title>
+    </h:head>
+
+    <h:body>
+        <section>
+            <div class="jumbotron">
+                <div class="container">
+                    <h1>Products</h1>
+                    <p>Add products</p>
+                </div>
+            </div>
+        </section>
+        <section class="container">
+            <h:form class="form-horizontal">
+                <fieldset>
+                    <legend>Add new product</legend>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2 col-lg-2" for="productId">
+                            Product ID</label>
+                        <div class="col-lg-10">
+                            <h:inputText id="productId" value="#{productBean.productId}" class="form:input-large"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2 col-lg-2" for="name">Name</label>
+                        <div class="col-lg-10">
+                            <h:inputText id="name" value="#{productBean.name}" class="form:input-large"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2 col-lg-2" for="unitPrice">Unit Price</label>
+                        <div class="col-lg-10">
+                            <h:inputText id="unitPrice" value="#{productBean.unitPrice}" class="form:input-large"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2 col-lg-2" for="manufacturer">Manufacturer</label>
+                        <div class="col-lg-10">
+                            <h:inputText id="manufacturer" value="#{productBean.manufacturer}" class="form:input-large"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2 col-lg-2" for="category">Category</label>
+                        <div class="col-lg-10">
+                            <h:inputText id="category" value="#{productBean.category}" class="form:input-large"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2 col-lg-2" for="unitsInStock">Units in store</label>
+                        <div class="col-lg-10">
+                            <h:inputText id="unitsInStock" value="#{productBean.unitsInStock}" class="form:input-large"/>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2" for="description">Description</label>
+                        <div class="col-lg-10">
+                            <h:inputTextarea id="description" value="#{productBean.description}" rows="2"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2" for="condition">condition</label>
+                        <div class="col-lg-10">
+                            <h:selectOneRadio value="#{productBean.condition}">
+                                <f:selectItem itemValue="New" itemLabel="New" />
+                                <f:selectItem itemValue="Old" itemLabel="Old" />	
+                                <f:selectItem itemValue="Refurbished" itemLabel="Refurbished" />                                
+                            </h:selectOneRadio>	
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <h:commandButton id="btnAdd" class="btn btn-primary" value="Add" action="#{productBean.onAdd()}" />
+                        </div>
+                    </div>
+                </fieldset>
+            </h:form>
+        </section>
+    </h:body>
+</html>
